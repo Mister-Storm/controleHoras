@@ -1,24 +1,25 @@
 package com.fernando.zallpy.controlehoras.model;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Programmer extends User {
 
    public Programmer() {
-       super(false);
+       this.setAdmin(false);
    }
 
-   @ManyToMany
-    List<Project> projects;
+   @ManyToMany(mappedBy = "programmers")
+   private Set<Project> projects;
 
-    public List<Project> getProjects() {
+    public Set<Project> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<Project> projects) {
+    public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
 }

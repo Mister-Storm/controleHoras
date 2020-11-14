@@ -6,12 +6,13 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy= InheritanceType.JOINED)
-public abstract class User implements Serializable {
+public class User implements Serializable {
 
 
 
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idUser;
     @Column
     private String name;
     @Column
@@ -19,16 +20,12 @@ public abstract class User implements Serializable {
     @Column
     private Boolean admin;
 
-    public User(Boolean admin) {
-        this.admin=admin;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {
@@ -47,7 +44,7 @@ public abstract class User implements Serializable {
         this.email = email;
     }
 
-    public Boolean getAdmin() {
+    public Boolean isAdmin() {
         return admin;
     }
 
