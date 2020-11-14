@@ -1,21 +1,20 @@
 package com.fernando.zallpy.controlehoras.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.List;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Project {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String projectName;
     @ManyToMany
-    private List<Programmer> programers;
+    @JoinTable
+    private Set<Programmer> programmers;
 
     public Long getId() {
         return id;
@@ -33,12 +32,12 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public List<Programmer> getProgramers() {
-        return programers;
+    public Set<Programmer> getProgrammers() {
+        return programmers;
     }
 
-    public void setProgramers(List<Programmer> programers) {
-        this.programers = programers;
+    public void setProgrammers(Set<Programmer> programmers) {
+        this.programmers = programmers;
     }
 
     @Override
