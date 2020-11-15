@@ -27,8 +27,6 @@ public class Programmer extends User {
         this.projects = projects;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         return super.equals(o);
@@ -37,18 +35,5 @@ public class Programmer extends User {
     @Override
     public int hashCode() {
         return super.hashCode();
-    }
-
-    public TimeEntry pointHours(Project project, BigDecimal hours, LocalDate date) throws TimeEntryViolationException {
-        if(projects.contains(project)) {
-            return new TimeEntryBuilder()
-                    .withAppointedHourId(this.getIdUser(), project.getId())
-                    .withHours(hours)
-                    .withDate(date)
-                    .build();
-        } else {
-            throw new TimeEntryViolationException(project);
-        }
-
     }
 }

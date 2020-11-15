@@ -2,6 +2,7 @@ package com.fernando.zallpy.controlehoras.service;
 
 import com.fernando.zallpy.controlehoras.model.Programmer;
 import com.fernando.zallpy.controlehoras.repository.ProgrammerRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,11 @@ public class ProgrammerService {
         return programmers;
 
     }
+
+    public Programmer findById(Long id) {
+        return repository.findById(id).orElseThrow(()-> new ObjectNotFoundException(1L, "Programmer"));
+    }
+
+
 
 }
