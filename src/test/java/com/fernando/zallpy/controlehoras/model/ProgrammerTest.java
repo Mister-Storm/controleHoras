@@ -1,6 +1,6 @@
 package com.fernando.zallpy.controlehoras.model;
 
-import com.fernando.zallpy.controlehoras.exception.AppointedHourViolationException;
+import com.fernando.zallpy.controlehoras.exception.TimeEntryViolationException;
 import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProgrammerTest {
 
     @Test
-    public void given_a_project_that_the_programmer_is_registered_when_points_out_hours_should_be_trow_an_exception() throws AppointedHourViolationException {
+    public void given_a_project_that_the_programmer_is_registered_when_points_out_hours_should_be_trow_an_exception() throws TimeEntryViolationException {
         Programmer programmer = new Programmer();
         Project projA = new Project();
         projA.setId(1L);
@@ -25,7 +25,7 @@ class ProgrammerTest {
     }
 
     @Test
-    public void given_a_project_that_the_programmer_is_not_registered_when_points_out_hours_should_be_trow_an_exception() throws AppointedHourViolationException {
+    public void given_a_project_that_the_programmer_is_not_registered_when_points_out_hours_should_be_trow_an_exception() throws TimeEntryViolationException {
         Programmer programmer = new Programmer();
         Project projA = new Project();
         projA.setId(1L);
@@ -36,7 +36,7 @@ class ProgrammerTest {
         Project projB = new Project();
         projA.setId(2L);
         projA.setProjectName("Projeto B");
-        assertThrows(AppointedHourViolationException.class, ()-> programmer.pointHours(projB, new BigDecimal(2.5), LocalDate.now()));
+        assertThrows(TimeEntryViolationException.class, ()-> programmer.pointHours(projB, new BigDecimal(2.5), LocalDate.now()));
     }
 
 }

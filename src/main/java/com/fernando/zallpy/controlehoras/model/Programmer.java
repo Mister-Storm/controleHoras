@@ -1,7 +1,7 @@
 package com.fernando.zallpy.controlehoras.model;
 
-import com.fernando.zallpy.controlehoras.exception.AppointedHourViolationException;
-import com.fernando.zallpy.controlehoras.model.builders.AppointedHourBuilder;
+import com.fernando.zallpy.controlehoras.exception.TimeEntryViolationException;
+import com.fernando.zallpy.controlehoras.model.builders.TimeEntryBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -39,15 +39,15 @@ public class Programmer extends User {
         return super.hashCode();
     }
 
-    public AppointedHour pointHours(Project project, BigDecimal hours, LocalDate date) throws AppointedHourViolationException {
+    public TimeEntry pointHours(Project project, BigDecimal hours, LocalDate date) throws TimeEntryViolationException {
         if(projects.contains(project)) {
-            return new AppointedHourBuilder()
+            return new TimeEntryBuilder()
                     .withAppointedHourId(this.getIdUser(), project.getId())
                     .withHours(hours)
                     .withDate(date)
                     .build();
         } else {
-            throw new AppointedHourViolationException(project);
+            throw new TimeEntryViolationException(project);
         }
 
     }

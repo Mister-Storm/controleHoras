@@ -6,10 +6,10 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class AppointedHour {
+public class TimeEntry {
 
     @EmbeddedId
-    private AppointedHourId appointedHourId;
+    private TimeEntryId timeEntryId;
 
     @Column
     private BigDecimal hours;
@@ -17,12 +17,12 @@ public class AppointedHour {
     @Column
     private LocalDate date;
 
-    public AppointedHourId getAppointedHourId() {
-        return appointedHourId;
+    public TimeEntryId getTimeEntryId() {
+        return timeEntryId;
     }
 
-    public void setAppointedHourId(AppointedHourId appointedHourId) {
-        this.appointedHourId = appointedHourId;
+    public void setTimeEntryId(TimeEntryId timeEntryId) {
+        this.timeEntryId = timeEntryId;
     }
 
     public BigDecimal getHours() {
@@ -45,14 +45,14 @@ public class AppointedHour {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AppointedHour that = (AppointedHour) o;
-        return Objects.equals(appointedHourId, that.appointedHourId) &&
+        TimeEntry that = (TimeEntry) o;
+        return Objects.equals(timeEntryId, that.timeEntryId) &&
                 Objects.equals(hours, that.hours) &&
                 Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appointedHourId, hours, date);
+        return Objects.hash(timeEntryId, hours, date);
     }
 }

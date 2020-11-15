@@ -5,13 +5,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class AppointedHourId implements Serializable {
+public class TimeEntryId implements Serializable {
 
     private Long programmerId;
     private Long projectId;
 
-    public AppointedHourId(){}
-    public AppointedHourId(Long programmerId, Long projectId) {
+    public TimeEntryId(){}
+    public TimeEntryId(Long programmerId, Long projectId) {
         this.programmerId=programmerId;
         this.projectId=projectId;
     }
@@ -37,7 +37,7 @@ public class AppointedHourId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AppointedHourId that = (AppointedHourId) o;
+        TimeEntryId that = (TimeEntryId) o;
         return Objects.equals(programmerId, that.programmerId) &&
                 Objects.equals(projectId, that.projectId);
     }
