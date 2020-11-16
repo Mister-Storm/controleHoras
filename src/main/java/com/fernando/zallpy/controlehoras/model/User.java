@@ -18,6 +18,8 @@ public class User implements Serializable {
     @Column
     private String email;
     @Column
+    private String password;
+    @Column
     private Boolean admin;
 
     public Long getIdUser() {
@@ -50,6 +52,14 @@ public class User implements Serializable {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
