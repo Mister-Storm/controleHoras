@@ -1,4 +1,4 @@
-package com.fernando.zallpy.controlehoras.model;
+package com.fernando.zallpy.controlehoras.domain;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,7 +14,7 @@ public class Project {
     private String projectName;
     @ManyToMany
     @JoinTable
-    private Set<Programmer> programmers;
+    private Set<User> programmers;
 
     public Long getId() {
         return id;
@@ -32,11 +32,11 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public Set<Programmer> getProgrammers() {
+    public Set<User> getProgrammers() {
         return programmers;
     }
 
-    public void setProgrammers(Set<Programmer> programmers) {
+    public void setProgrammers(Set<User> programmers) {
         this.programmers = programmers;
     }
 

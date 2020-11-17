@@ -1,7 +1,7 @@
-package com.fernando.zallpy.controlehoras.model.builders;
+package com.fernando.zallpy.controlehoras.domain.builders;
 
-import com.fernando.zallpy.controlehoras.model.TimeEntry;
-import com.fernando.zallpy.controlehoras.model.TimeEntryId;
+import com.fernando.zallpy.controlehoras.domain.TimeEntry;
+import com.fernando.zallpy.controlehoras.domain.TimeEntryId;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

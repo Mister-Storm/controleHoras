@@ -1,4 +1,4 @@
-package com.fernando.zallpy.controlehoras.model;
+package com.fernando.zallpy.controlehoras.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

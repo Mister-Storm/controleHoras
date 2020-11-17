@@ -1,4 +1,4 @@
-package com.fernando.zallpy.controlehoras.model;
+package com.fernando.zallpy.controlehoras.domain;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;

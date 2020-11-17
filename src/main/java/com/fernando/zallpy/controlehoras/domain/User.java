@@ -1,11 +1,15 @@
-package com.fernando.zallpy.controlehoras.model;
+package com.fernando.zallpy.controlehoras.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
-@Inheritance(strategy= InheritanceType.JOINED)
 public class User implements Serializable {
 
 
@@ -18,9 +22,11 @@ public class User implements Serializable {
     @Column
     private String email;
     @Column
+    @JsonIgnore
     private String password;
-    @Column
-    private Boolean admin;
+    @ElementCollection(fetch=FetchType.EAGER)
+    @CollectionTable
+    private Set<Integer> profiles = new HashSet<>();
 
     public Long getIdUser() {
         return idUser;
@@ -46,12 +52,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Boolean isAdmin() {
-        return admin;
+    public Set<ProfileEnum> getProfiles(){
+        return profiles.stream().map(profile -> ProfileEnum.toEnum(profile)).collect(Collectors.toSet());
     }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
+    public void addProfile(ProfileEnum profile) {
+        profiles.add(profile.getCod());
     }
 
     public String getPassword() {

@@ -1,7 +1,7 @@
-package com.fernando.zallpy.controlehoras.model.builders;
+package com.fernando.zallpy.controlehoras.domain.builders;
 
-import com.fernando.zallpy.controlehoras.model.Programmer;
-import com.fernando.zallpy.controlehoras.model.Project;
+import com.fernando.zallpy.controlehoras.domain.Project;
+import com.fernando.zallpy.controlehoras.domain.User;
 
 import java.util.Set;
 
@@ -23,7 +23,7 @@ public class ProjectBuilder {
         return this;
     }
 
-    public ProjectBuilder withProgrammers(Set<Programmer> programmers) {
+    public ProjectBuilder withProgrammers(Set<User> programmers) {
         project.setProgrammers(programmers);
         return this;
     }
