@@ -35,5 +35,4 @@ public enum ProfileEnum {
 
         throw new IllegalArgumentException("Invalid Id: " + cod);
     }
-
 }
