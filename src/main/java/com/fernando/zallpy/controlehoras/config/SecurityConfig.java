@@ -1,5 +1,7 @@
 package com.fernando.zallpy.controlehoras.config;
 
+import com.fernando.zallpy.controlehoras.security.JWTAuthenticationFilter;
+import com.fernando.zallpy.controlehoras.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("userDetailsServiceImpl")
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    JWTUtil jwtUtil;
+
     private static final String[] PUBLIC_MATCHERS = {
             "/h2-console/**"
     };
@@ -39,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PUBLIC_MATCHERS)
                 .permitAll()
                 .anyRequest().authenticated();
+        http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
     @Override
