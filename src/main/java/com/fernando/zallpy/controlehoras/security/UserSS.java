@@ -65,4 +65,8 @@ public class UserSS implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public boolean hasHole(ProfileEnum profileEnum) {
+        return authorities.contains(new SimpleGrantedAuthority(profileEnum.getDescription()));
+    }
 }
