@@ -1,4 +1,4 @@
-package com.fernando.zallpy.controlehoras.service;
+package com.fernando.zallpy.controlehoras.service.exception;
 
 public class AuthorizationException extends RuntimeException {
 
