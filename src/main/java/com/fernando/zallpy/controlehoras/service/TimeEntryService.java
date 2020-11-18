@@ -1,7 +1,9 @@
 package com.fernando.zallpy.controlehoras.service;
 
+import com.fernando.zallpy.controlehoras.domain.ProfileEnum;
 import com.fernando.zallpy.controlehoras.domain.TimeEntry;
 import com.fernando.zallpy.controlehoras.repository.TimeEntryRepository;
+import com.fernando.zallpy.controlehoras.security.UserSS;
 import com.fernando.zallpy.controlehoras.service.exception.AuthorizationException;
 import com.fernando.zallpy.controlehoras.service.exception.UnauthorizedException;
 import com.fernando.zallpy.controlehoras.service.utils.TimeEntryUtils;
@@ -17,6 +19,12 @@ public class TimeEntryService {
     @Autowired
     private TimeEntryRepository repository;
 
+    @Autowired
+    private ProjectService projectService;
+
+    @Autowired
+    private UserService userService;
+
     public List<TimeEntry> findAll() {
         return repository.findAll();
     }
@@ -31,7 +39,11 @@ public class TimeEntryService {
     }
 
     public TimeEntry save(TimeEntry timeEntry) {
-        if(TimeEntryUtils.isTheSameUser(UserSSService.authenticated(), timeEntry.getTimeEntryId().getProgrammerId())){
+        UserSS user = UserSSService.authenticated();
+        if(TimeEntryUtils.isTheSameUser(user, timeEntry.getTimeEntryId().getProgrammerId())
+        && user.hasHole(ProfileEnum.PROGRAMMER)
+        && TimeEntryUtils.isTheProgrammerInList(userService.findById(user.getId()),
+                projectService.findById(timeEntry.getTimeEntryId().getProjectId()))){
             return repository.save(timeEntry);
         }
         throw new UnauthorizedException("You don't have authorization to realize this task!");
