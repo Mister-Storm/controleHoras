@@ -2,6 +2,9 @@ package com.fernando.zallpy.controlehoras.service;
 
 import com.fernando.zallpy.controlehoras.domain.ProfileEnum;
 import com.fernando.zallpy.controlehoras.domain.TimeEntry;
+import com.fernando.zallpy.controlehoras.domain.User;
+import com.fernando.zallpy.controlehoras.dto.TimeEntryDTO;
+import com.fernando.zallpy.controlehoras.dto.mappers.TimeEntryMapper;
 import com.fernando.zallpy.controlehoras.repository.TimeEntryRepository;
 import com.fernando.zallpy.controlehoras.security.UserSS;
 import com.fernando.zallpy.controlehoras.service.exception.AuthorizationException;
@@ -31,21 +34,28 @@ public class TimeEntryService {
 
     public List<TimeEntry> findAllForProgrammer(Long programmerId) {
 
-        if (TimeEntryUtils.isTheSameUser(UserSSService.authenticated(), programmerId)) {
-            return repository.findAllByTimeEntryId_ProgrammerId(programmerId);
+        UserSS user = UserSSService.authenticated();
+        if (TimeEntryUtils.isTheSameUser(user, programmerId)
+        || user.hasHole(ProfileEnum.ADMIN)) {
+            return repository.findAllByProgrammerId(programmerId);
         }
         throw new AuthorizationException("Access denied!!!!!");
 
     }
 
-    public TimeEntry save(TimeEntry timeEntry) {
-        UserSS user = UserSSService.authenticated();
-        if(TimeEntryUtils.isTheSameUser(user, timeEntry.getTimeEntryId().getProgrammerId())
-        && user.hasHole(ProfileEnum.PROGRAMMER)
-        && TimeEntryUtils.isTheProgrammerInList(userService.findById(user.getId()),
-                projectService.findById(timeEntry.getTimeEntryId().getProjectId()))){
-            return repository.save(timeEntry);
+    public TimeEntry save(TimeEntryDTO dto) {
+
+        if(verifyAuthorizationsFromUser(dto)){
+            return repository.save(TimeEntryMapper.toEntity(dto));
         }
         throw new UnauthorizedException("You don't have authorization to realize this task!");
+    }
+
+    private boolean verifyAuthorizationsFromUser(TimeEntryDTO dto) {
+        UserSS user = UserSSService.authenticated();
+        return TimeEntryUtils.isTheSameUser(user, dto.getProgrammerId())
+        && user.hasHole(ProfileEnum.PROGRAMMER)
+        && TimeEntryUtils.isTheProgrammerInList(userService.findById(user.getId()),
+                projectService.findById(dto.getProjectId()));
     }
 }

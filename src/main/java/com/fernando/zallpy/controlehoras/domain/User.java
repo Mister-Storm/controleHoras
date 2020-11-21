@@ -14,10 +14,8 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUser;
-    @Column
+    private Long id;
     private String name;
-    @Column
     private String email;
     @Column
     @JsonIgnore
@@ -26,12 +24,18 @@ public class User implements Serializable {
     @CollectionTable
     private Set<Integer> profiles = new HashSet<>();
 
-    public Long getIdUser() {
-        return idUser;
+    public User(){}
+
+    public User(Long id) {
+        this.id=id;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

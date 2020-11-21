@@ -1,6 +1,6 @@
 package com.fernando.zallpy.controlehoras.ressources;
 
-import com.fernando.zallpy.controlehoras.domain.TimeEntry;
+import com.fernando.zallpy.controlehoras.dto.TimeEntryDTO;
 import com.fernando.zallpy.controlehoras.service.TimeEntryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +21,7 @@ public class TimeEntryRessource {
     public ResponseEntity<?> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
+
     @GetMapping
     @RequestMapping(value = "/{programmer}")
     @PreAuthorize("hasAnyRole('ADMIN', 'PROGRAMMER')")
@@ -29,8 +30,8 @@ public class TimeEntryRessource {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody TimeEntry timeEntry) {
-        return new ResponseEntity<>(service.save(timeEntry), HttpStatus.CREATED);
+    public ResponseEntity<?> save(@RequestBody TimeEntryDTO dto) {
+        return new ResponseEntity<>(service.save(dto), HttpStatus.CREATED);
     }
 
 }

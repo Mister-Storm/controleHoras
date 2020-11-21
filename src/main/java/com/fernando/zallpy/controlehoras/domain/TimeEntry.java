@@ -8,8 +8,17 @@ import java.util.Objects;
 @Entity
 public class TimeEntry {
 
-    @EmbeddedId
-    private TimeEntryId timeEntryId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn
+    private User programmer;
+
+    @ManyToOne
+    @JoinColumn
+    private Project project;
 
     @Column
     private BigDecimal hours;
@@ -17,12 +26,28 @@ public class TimeEntry {
     @Column
     private LocalDate date;
 
-    public TimeEntryId getTimeEntryId() {
-        return timeEntryId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTimeEntryId(TimeEntryId timeEntryId) {
-        this.timeEntryId = timeEntryId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getProgrammer() {
+        return programmer;
+    }
+
+    public void setProgrammer(User programmer) {
+        this.programmer = programmer;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public BigDecimal getHours() {
@@ -46,13 +71,14 @@ public class TimeEntry {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TimeEntry that = (TimeEntry) o;
-        return Objects.equals(timeEntryId, that.timeEntryId) &&
+        return Objects.equals(programmer, that.programmer) &&
+                Objects.equals(project, that.programmer) &&
                 Objects.equals(hours, that.hours) &&
                 Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(timeEntryId, hours, date);
+        return Objects.hash(programmer, project, hours, date);
     }
 }

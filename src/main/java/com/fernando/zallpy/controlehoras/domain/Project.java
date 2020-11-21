@@ -16,6 +16,12 @@ public class Project {
     @JoinTable
     private Set<User> programmers;
 
+    public Project(){}
+
+    public Project(Long id){
+        this.id=id;
+    }
+
     public Long getId() {
         return id;
     }

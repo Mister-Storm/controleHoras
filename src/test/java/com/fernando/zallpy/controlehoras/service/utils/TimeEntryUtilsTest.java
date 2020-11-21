@@ -56,7 +56,7 @@ class TimeEntryUtilsTest {
         Project project = new Project();
         User programmer = new User();
         programmer.setEmail("fulano@123.com");
-        programmer.setIdUser(1L);
+        programmer.setId(1L);
         programmer.setName("fulano");
         Set<User> programmers = createProgrammers();
         programmers.add(programmer);
@@ -69,7 +69,7 @@ class TimeEntryUtilsTest {
         Project project = new Project();
         User programmer = new User();
         programmer.setEmail("fulano@123.com");
-        programmer.setIdUser(1L);
+        programmer.setId(1L);
         programmer.setName("fulano");
         Set<User> programmers = createProgrammers();
         project.setProgrammers(programmers);
@@ -82,7 +82,7 @@ class TimeEntryUtilsTest {
         for(int i=2; i<10; i++) {
             User programmer = new User();
             programmer.setEmail("fulano" +i+"@123.com");
-            programmer.setIdUser((long) i);
+            programmer.setId((long) i);
             programmer.setName("fulano" +i);
             programmers.add(programmer);
         }
