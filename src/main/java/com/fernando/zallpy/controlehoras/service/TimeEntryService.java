@@ -14,10 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
 public class TimeEntryService {
+
+    private final String ERROR_MESSAGE="You don't have authorization to realize this task! Please contact the system manager";
 
     @Autowired
     private TimeEntryRepository repository;
@@ -28,18 +31,21 @@ public class TimeEntryService {
     @Autowired
     private UserService userService;
 
-    public List<TimeEntry> findAll() {
-        return repository.findAll();
+    public List<TimeEntryDTO> findAll() {
+        return repository.findAll().stream().map(timeEntry ->
+                TimeEntryMapper.toDTO(timeEntry)).collect(Collectors.toList());
     }
 
-    public List<TimeEntry> findAllForProgrammer(Long programmerId) {
-
-        UserSS user = UserSSService.authenticated();
-        if (TimeEntryUtils.isTheSameUser(user, programmerId)
-        || user.hasHole(ProfileEnum.ADMIN)) {
-            return repository.findAllByProgrammerId(programmerId);
+    public List<TimeEntryDTO> findAllForProgrammer(Long programmerId) {
+        User user = new User();
+        user.setId(programmerId);
+        UserSS userSS = UserSSService.authenticated();
+        if (TimeEntryUtils.isTheSameUser(userSS, programmerId)
+        || userSS.hasHole(ProfileEnum.ADMIN)) {
+            return repository.findAllByProgrammer(user).stream().map(timeEntry ->
+                    TimeEntryMapper.toDTO(timeEntry)).collect(Collectors.toList());
         }
-        throw new AuthorizationException("Access denied!!!!!");
+        throw new AuthorizationException(ERROR_MESSAGE);
 
     }
 
@@ -48,7 +54,7 @@ public class TimeEntryService {
         if(verifyAuthorizationsFromUser(dto)){
             return repository.save(TimeEntryMapper.toEntity(dto));
         }
-        throw new UnauthorizedException("You don't have authorization to realize this task!");
+        throw new UnauthorizedException(ERROR_MESSAGE);
     }
 
     private boolean verifyAuthorizationsFromUser(TimeEntryDTO dto) {

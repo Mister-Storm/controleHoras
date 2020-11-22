@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface TimeEntryRepository extends JpaRepository<TimeEntry, Long> {
 
-    List<TimeEntry> findAllByProgrammerId(Long programmerId);
+    List<TimeEntry> findAllByProgrammer(User user);
 }

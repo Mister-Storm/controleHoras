@@ -14,4 +14,9 @@ public class TimeEntryMapper {
                 .withDate(dto.getDate())
                 .build();
     }
+
+    public static  TimeEntryDTO toDTO(TimeEntry timeEntry) {
+        return new TimeEntryDTO(timeEntry.getProgrammerId(), timeEntry.getProgrammerName(),timeEntry.getProjectId(),
+                timeEntry.getProjectName(),timeEntry.getHours(),timeEntry.getDate());
+    }
 }

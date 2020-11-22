@@ -66,6 +66,22 @@ public class TimeEntry {
         this.date = date;
     }
 
+    public Long getProgrammerId() {
+        return programmer.getId();
+    }
+
+    public String getProgrammerName(){
+        return programmer.getName();
+    }
+
+    public Long getProjectId(){
+        return project.getId();
+    }
+
+    public String getProjectName(){
+        return project.getProjectName();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
